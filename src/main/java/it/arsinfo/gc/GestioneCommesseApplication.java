@@ -1,6 +1,8 @@
 package it.arsinfo.gc;
 
 
+import java.math.BigDecimal;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -10,9 +12,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import it.arsinfo.gc.entity.Commessa;
+import it.arsinfo.gc.repository.CommessaDao;
+
 @SpringBootApplication
 public class GestioneCommesseApplication {
 
+    
 	private static final Logger log = LoggerFactory.getLogger(GestioneCommesseApplication.class);
 		
 		
@@ -22,12 +28,14 @@ public class GestioneCommesseApplication {
 	
 	@Bean
 	@Transactional
-	public CommandLineRunner loadData(
+	public CommandLineRunner loadData(CommessaDao commessaDao
 								) {
 		return (args) -> {
-			// save a couple of customers
-						
-
+		    Commessa commessa1 = new Commessa();
+		    commessa1.setNome("ABC123");
+                    commessa1.setDescr("ZVF");
+                    commessa1.setImporto(new BigDecimal(100000000));
+                    commessaDao.save(commessa1);
 		};
 	}
 }

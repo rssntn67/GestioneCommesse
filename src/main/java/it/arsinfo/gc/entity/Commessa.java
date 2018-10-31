@@ -26,85 +26,125 @@ public class Commessa {
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long m_id;
+	private Long id;
 	
-	private String m_nome;
+	private String nome;
 	
-	private String m_descr;
+	private String descr;
 	
-	private BigDecimal m_importo;
+	private BigDecimal importo;
+
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date m_inizio;
+	private Date inizio;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date m_fine;
+	private Date fine;
 	
 	@Enumerated(EnumType.STRING)
-	private Tipologia m_tipologia;
+	private Tipologia tipologia;
 
 	public Commessa() {
-		super();
+            super();
+	    nome = "inserire il nome";
+	    descr = "Inserire la descrizione";
+	    importo = BigDecimal.ZERO;
+	    inizio = new Date();
+	    fine=new Date();
+	    tipologia=Tipologia.MENSILE;
 	}
 
     public Long getId() {
-        return m_id;
+        return id;
     }
 
     public void setId(Long id) {
-        m_id = id;
+        this.id = id;
     }
 
     public String getNome() {
-        return m_nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        m_nome = nome;
+        this.nome = nome;
     }
 
     public String getDescr() {
-        return m_descr;
+        return descr;
     }
 
     public void setDescr(String descr) {
-        m_descr = descr;
+        this.descr = descr;
     }
 
     public BigDecimal getImporto() {
-        return m_importo;
+        return importo;
     }
 
     public void setImporto(BigDecimal importo) {
-        m_importo = importo;
+        this.importo = importo;
     }
 
     public Date getInizio() {
-        return m_inizio;
+        return inizio;
     }
 
     public void setInizio(Date inizio) {
-        m_inizio = inizio;
+        this.inizio = inizio;
     }
 
     public Date getFine() {
-        return m_fine;
+        return fine;
     }
 
     public void setFine(Date fine) {
-        m_fine = fine;
+        this.fine = fine;
     }
 
     public Tipologia getTipologia() {
-        return m_tipologia;
+        return tipologia;
     }
 
     public void setTipologia(Tipologia tipologia) {
-        m_tipologia = tipologia;
+        this.tipologia = tipologia;
     }
 
-	
-	
-	
-	
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result
+                + ((importo == null) ? 0 : importo.hashCode());
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Commessa other = (Commessa) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (importo == null) {
+            if (other.importo != null)
+                return false;
+        } else if (!importo.equals(other.importo))
+            return false;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
+            return false;
+        return true;
+    }
 	
 }
