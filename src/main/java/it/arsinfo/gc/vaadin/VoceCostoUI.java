@@ -19,16 +19,16 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
-import it.arsinfo.gc.entity.Commessa;
-import it.arsinfo.gc.repository.CommessaDao;
+import it.arsinfo.gc.entity.VoceCosto;
+import it.arsinfo.gc.repository.VoceCostoDao;
 
-@SpringUI(path=GestioneCommesseUI.URL_COMMESSE)
-@Title("Commesse")
-public class CommessaUI extends GestioneCommesseHeaderUI {
+@SpringUI(path=GestioneCommesseUI.URL_VOCECOSTO)
+@Title("Voci di Costo")
+public class VoceCostoUI extends GestioneCommesseHeaderUI {
 
-    Grid<Commessa> grid;
+    Grid<VoceCosto> grid;
     @Autowired
-    CommessaDao repo;
+    VoceCostoDao repo;
     /**
      * 
      */
@@ -38,15 +38,15 @@ public class CommessaUI extends GestioneCommesseHeaderUI {
     protected void init(VaadinRequest request) {
         super.init(request);
         Assert.notNull(repo, "repo must be not null");
-        Button addNewBtn = new Button("Nuova Commessa", VaadinIcons.PLUS);
+        Button addNewBtn = new Button("Nuova Voce di Costo", VaadinIcons.PLUS);
         TextField filter = new TextField();
         
-        CommessaEditor editor = new CommessaEditor(repo);
+        VoceCostoEditor editor = new VoceCostoEditor(repo);
         editor.setWidth("80%");
         HorizontalLayout actions = new HorizontalLayout(filter,addNewBtn);
-        grid = new Grid<>(Commessa.class);
+        grid = new Grid<>(VoceCosto.class);
         grid.setWidth("80%");
-        grid.setColumns("id", "nome", "importo","inizio","fine","descr");
+        grid.setColumns("id", "voce","descr");
         
         addComponents(editor,actions, grid);
         
@@ -57,7 +57,7 @@ public class CommessaUI extends GestioneCommesseHeaderUI {
                 editor.edit(e.getValue());
         });
 
-        addNewBtn.addClickListener(e -> editor.edit(new Commessa()));
+        addNewBtn.addClickListener(e -> editor.edit(new VoceCosto()));
 
         editor.setChangeHandler(() -> {
                 editor.setVisible(false);
@@ -72,15 +72,15 @@ public class CommessaUI extends GestioneCommesseHeaderUI {
             grid.setItems(repo.findAll());
             return;
         }
-        Set<Commessa> listaitem = new HashSet<>();
+        Set<VoceCosto> listaitem = new HashSet<>();
         listaitem.addAll(repo.findByDescrStartsWithIgnoreCase(value));
-        listaitem.addAll(repo.findByNomeStartsWithIgnoreCase(value));
+        listaitem.addAll(repo.findByVoceStartsWithIgnoreCase(value));
         grid.setItems(listaitem);    
     }
 
     @Override
     protected Label getTitleLabel() {
-        Label header = new Label("Gestione Commesse");
+        Label header = new Label("Voci di Costo");
         header.addStyleName(ValoTheme.LABEL_H2);
         return header;
     }

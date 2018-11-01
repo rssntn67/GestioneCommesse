@@ -1,32 +1,31 @@
 package it.arsinfo.gc.vaadin;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Link;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
 @Title("Gestione Commesse")
-public class GestioneCommesseUI extends UI {
+public class GestioneCommesseUI extends GestioneCommesseHeaderUI {
 
     /**
      * 
      */
     private static final long serialVersionUID = 3896255437370683864L;
-    public final static String URL_COMMESSE="commesse";
     @Override
     protected void init(VaadinRequest request) {
-        VerticalLayout layout = new VerticalLayout();
-        layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        layout.addComponents(new Label("Benvenuti nel programma gestione commesse"),
-                        new Link("Commesse", new ExternalResource(URL_COMMESSE)));
-                       
-        setContent(layout);
+        super.init(request);
+        addComponents(getHeaderLinks());
+    }
+    
+    @Override
+    protected Label getTitleLabel() {
+        Label header = new Label("Benvenuti nel programma gestione commesse");
+        header.addStyleName(ValoTheme.LABEL_H2);
+        return header;
     }
 
+    
 }

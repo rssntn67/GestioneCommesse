@@ -1,28 +1,32 @@
 package it.arsinfo.gc.vaadin;
 
 
+import java.util.List;
+
 import com.vaadin.data.Binder;
 import com.vaadin.data.converter.LocalDateToDateConverter;
 import com.vaadin.data.converter.StringToBigDecimalConverter;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
 import it.arsinfo.gc.entity.Commessa;
-import it.arsinfo.gc.repository.CommessaDao;
+import it.arsinfo.gc.entity.VariazioneCommessa;
+import it.arsinfo.gc.repository.VariazioneCommessaDao;
 
-public class CommessaEditor extends GestioneCommesseEditor {
+public class VariazioneCommessaEditor extends GestioneCommesseEditor {
 
     /**
      * 
      */
     private static final long serialVersionUID = -6636202872081273998L;
-    private Commessa commessa;
-    private final TextField nome = new TextField("Nome");
+    private VariazioneCommessa variazioneCommessa;
+    private final ComboBox<Commessa> commessa = new ComboBox<Commessa>("Selezionare la Commessa");
     private final TextField descr = new TextField("Descrizione");
     private final TextField importo = new TextField("Importo");
     private final DateField inizio = new DateField("Inizio");
@@ -32,20 +36,23 @@ public class CommessaEditor extends GestioneCommesseEditor {
     Button cancel = new Button("Cancel");
     Button delete = new Button("Delete", VaadinIcons.TRASH);
 
-    HorizontalLayout pri = new HorizontalLayout(nome,importo);
-    HorizontalLayout sec = new HorizontalLayout(inizio,fine);
+    HorizontalLayout pri = new HorizontalLayout(commessa,importo,inizio,fine);
     HorizontalLayout ter = new HorizontalLayout(descr);
     HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
 
-    Binder<Commessa> binder = new Binder<>(Commessa.class);
-    private CommessaDao repo;
-    public CommessaEditor(CommessaDao repo) {
+    Binder<VariazioneCommessa> binder = new Binder<>(VariazioneCommessa.class);
+    private VariazioneCommessaDao repo;
+    public VariazioneCommessaEditor(VariazioneCommessaDao repo, List<Commessa> commesse) {
         super();
         this.repo = repo;
-        addComponents(pri,sec,ter,actions);
+        addComponents(pri,ter,actions);
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
-        
-        binder.forField(nome).asRequired().bind("nome");
+        commessa.setItems(commesse);
+        commessa.setItemCaptionGenerator(Commessa::getNome);
+
+        binder.forField(commessa).asRequired().
+        withValidator(an -> an != null, "Scegliere una Commessa" ).
+        bind(VariazioneCommessa::getCommessa, VariazioneCommessa::setCommessa);
         binder.forField(descr).asRequired().bind("descr");
         binder.forField(importo).asRequired().withConverter(new StringToBigDecimalConverter("Conversione in Eur"))
         .bind("importo");
@@ -62,40 +69,40 @@ public class CommessaEditor extends GestioneCommesseEditor {
 
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> edit(commessa));
+        cancel.addClickListener(e -> edit(variazioneCommessa));
         setVisible(false);
 
     }
 
     private void delete() {
-        repo.delete(commessa);
+        repo.delete(variazioneCommessa);
         onchange();
     }
 
     private void save() {
-        repo.save(commessa);
+        repo.save(variazioneCommessa);
         onchange();  
     }
 
-    public void edit(Commessa comm) {
-        if (comm == null) {
+    public void edit(VariazioneCommessa variazcomm) {
+        if (variazcomm == null) {
             setVisible(false);
             return;
         }
         
-        final boolean persisted = comm.getId() != null;
+        final boolean persisted = variazcomm.getId() != null;
         if (persisted) {
                 // Find fresh entity for editing
-                commessa = repo.findById(comm.getId()).get();
+                variazioneCommessa = repo.findById(variazcomm.getId()).get();
         }
         else {
-                commessa = comm;
+            variazioneCommessa = variazcomm;
         }
         cancel.setVisible(persisted);
-        binder.setBean(commessa);
+        binder.setBean(variazioneCommessa);
 
         setVisible(true);
-        nome.focus();
+        importo.focus();
     }
 
 }
