@@ -1,10 +1,6 @@
 package it.arsinfo.gc;
 
 
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -14,11 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import it.arsinfo.gc.entity.Commessa;
-import it.arsinfo.gc.entity.Resoconto;
-import it.arsinfo.gc.entity.Resoconto.Tipologia;
-import it.arsinfo.gc.entity.VariazioneCommessa;
-import it.arsinfo.gc.entity.VoceCosto;
 import it.arsinfo.gc.repository.CommessaDao;
 import it.arsinfo.gc.repository.ResocontoDao;
 import it.arsinfo.gc.repository.VariazioneCommessaDao;
@@ -43,6 +34,7 @@ public class GestioneCommesseApplication {
 	        ResocontoDao resocontoDao
 								) {
 		return (args) -> {
+		    /*
 		   DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
 		    
 		   VoceCosto vc1 = new VoceCosto();
@@ -108,6 +100,7 @@ public class GestioneCommesseApplication {
                    r3.setData(formatter.parse("01/20/18"));
                    r3.setTipologia(Tipologia.ANNUALE);
                    resocontoDao.save(r3);
+                   */
 
 		};
 	}
