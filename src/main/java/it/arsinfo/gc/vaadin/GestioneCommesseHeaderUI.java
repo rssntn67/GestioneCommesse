@@ -16,6 +16,7 @@ public abstract class GestioneCommesseHeaderUI extends UI {
     /**
      * 
      */
+    public final static String URL_USER="user";
     public final static String URL_COMMESSE="commesse";
     public final static String URL_RESOCONTI="resoconti";
     public final static String URL_VOCECOSTO="vocecosto";
@@ -40,6 +41,7 @@ public abstract class GestioneCommesseHeaderUI extends UI {
     
     public Link[] getHeaderLinks() {
         Link[] links =  {
+            new Link("User", new ExternalResource(URL_USER)),
             new Link("Commesse", new ExternalResource(URL_COMMESSE)),
             new Link("Resoconti", new ExternalResource(URL_RESOCONTI)),
             new Link("Variazioni Commesse", new ExternalResource(URL_VARIAZIONE_COMMESSE)),

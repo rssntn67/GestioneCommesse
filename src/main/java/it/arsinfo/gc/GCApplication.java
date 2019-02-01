@@ -16,14 +16,11 @@ import it.arsinfo.gc.repository.VariazioneCommessaDao;
 import it.arsinfo.gc.repository.VoceCostoDao;
 
 @SpringBootApplication
-public class GestioneCommesseApplication {
-
-    
-	private static final Logger log = LoggerFactory.getLogger(GestioneCommesseApplication.class);
+public class GCApplication {
 		
 		
 	public static void main(String[] args) {
-		SpringApplication.run(GestioneCommesseApplication.class, args);
+		SpringApplication.run(GCApplication.class, args);
 	}
 	
 	@Bean
