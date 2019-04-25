@@ -1,8 +1,8 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class GestioneCommesseEditor extends VerticalLayout {
+public abstract class GCChangeHandler extends VerticalLayout {
 
     /**
      * 

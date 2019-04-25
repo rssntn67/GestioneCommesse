@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +22,9 @@ import com.vaadin.ui.themes.ValoTheme;
 import it.arsinfo.gc.entity.Commessa;
 import it.arsinfo.gc.repository.CommessaDao;
 
-@SpringUI(path=GestioneCommesseUI.URL_COMMESSE)
+@SpringUI(path=GCUI.URL_COMMESSE)
 @Title("Commesse")
-public class CommessaUI extends GestioneCommesseHeaderUI {
+public class CommessaUI extends GCUI {
 
     Grid<Commessa> grid;
     @Autowired

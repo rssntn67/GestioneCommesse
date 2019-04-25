@@ -1,7 +1,6 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 
-import java.util.EnumSet;
 import java.util.List;
 
 import com.vaadin.data.Binder;
@@ -17,62 +16,51 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
 import it.arsinfo.gc.entity.Commessa;
-import it.arsinfo.gc.entity.Resoconto;
-import it.arsinfo.gc.entity.Resoconto.Tipologia;
-import it.arsinfo.gc.entity.VoceCosto;
-import it.arsinfo.gc.repository.ResocontoDao;
+import it.arsinfo.gc.entity.VariazioneCommessa;
+import it.arsinfo.gc.repository.VariazioneCommessaDao;
 
-public class ResocontoEditor extends GestioneCommesseEditor {
+public class VariazioneCommessaEditor extends GCChangeHandler {
 
     /**
      * 
      */
     private static final long serialVersionUID = -6636202872081273998L;
-    private Resoconto resoconto;
+    private VariazioneCommessa variazioneCommessa;
     private final ComboBox<Commessa> commessa = new ComboBox<Commessa>("Selezionare la Commessa");
-    private final ComboBox<VoceCosto> voceCosto = new ComboBox<VoceCosto>("Selezionare la Voce Costo");
+    private final TextField descr = new TextField("Descrizione");
     private final TextField importo = new TextField("Importo");
-    private final DateField data = new DateField("Data");
-    private final ComboBox<Tipologia> tipologia = new ComboBox<Tipologia>("Tipologia", EnumSet.allOf(Tipologia.class));
+    private final DateField inizio = new DateField("Inizio");
+    private final DateField fine = new DateField("Fine");
 
     Button save = new Button("Save", VaadinIcons.CHECK);
     Button cancel = new Button("Cancel");
     Button delete = new Button("Delete", VaadinIcons.TRASH);
 
-    HorizontalLayout pri = new HorizontalLayout(commessa,voceCosto,importo);
-    HorizontalLayout sec = new HorizontalLayout(tipologia,data);
+    HorizontalLayout pri = new HorizontalLayout(commessa,importo,inizio,fine);
+    HorizontalLayout ter = new HorizontalLayout(descr);
     HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
 
-    Binder<Resoconto> binder = new Binder<>(Resoconto.class);
-    private ResocontoDao repo;
-    public ResocontoEditor(ResocontoDao repo, List<Commessa> commesse, List<VoceCosto> vc) {
+    Binder<VariazioneCommessa> binder = new Binder<>(VariazioneCommessa.class);
+    private VariazioneCommessaDao repo;
+    public VariazioneCommessaEditor(VariazioneCommessaDao repo, List<Commessa> commesse) {
         super();
         this.repo = repo;
-        addComponents(pri,sec,actions);
-        setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
-        
+        addComponents(pri,ter,actions);
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         commessa.setItems(commesse);
         commessa.setItemCaptionGenerator(Commessa::getNome);
 
-        voceCosto.setItems(vc);
-        voceCosto.setItemCaptionGenerator(VoceCosto::getVoce);
-
         binder.forField(commessa).asRequired().
         withValidator(an -> an != null, "Scegliere una Commessa" ).
-        bind(Resoconto::getCommessa, Resoconto::setCommessa);
-
-        binder.forField(voceCosto).asRequired().
-        withValidator(an -> an != null, "Scegliere una Voce di Costo" ).
-        bind(Resoconto::getVoceCosto, Resoconto::setVoceCosto);
-
+        bind(VariazioneCommessa::getCommessa, VariazioneCommessa::setCommessa);
+        binder.forField(descr).asRequired().bind("descr");
         binder.forField(importo).asRequired().withConverter(new StringToBigDecimalConverter("Conversione in Eur"))
         .bind("importo");
         
-        binder.forField(data).asRequired().
-        withConverter(new LocalDateToDateConverter()).bind("data");
-        
-        binder.forField(tipologia).asRequired().bind("tipologia");
+        binder.forField(inizio).asRequired().
+        withConverter(new LocalDateToDateConverter()).bind("inizio");
+        binder.forField(fine).asRequired().
+        withConverter(new LocalDateToDateConverter()).bind("fine");
         
         setSpacing(true);
 
@@ -81,40 +69,40 @@ public class ResocontoEditor extends GestioneCommesseEditor {
 
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> edit(resoconto));
+        cancel.addClickListener(e -> edit(variazioneCommessa));
         setVisible(false);
 
     }
 
     private void delete() {
-        repo.delete(resoconto);
+        repo.delete(variazioneCommessa);
         onchange();
     }
 
     private void save() {
-        repo.save(resoconto);
+        repo.save(variazioneCommessa);
         onchange();  
     }
 
-    public void edit(Resoconto rscnt) {
-        if (rscnt == null) {
+    public void edit(VariazioneCommessa variazcomm) {
+        if (variazcomm == null) {
             setVisible(false);
             return;
         }
         
-        final boolean persisted = rscnt.getId() != null;
+        final boolean persisted = variazcomm.getId() != null;
         if (persisted) {
                 // Find fresh entity for editing
-                resoconto = repo.findById(rscnt.getId()).get();
+                variazioneCommessa = repo.findById(variazcomm.getId()).get();
         }
         else {
-            resoconto = rscnt;
+            variazioneCommessa = variazcomm;
         }
         cancel.setVisible(persisted);
-        binder.setBean(resoconto);
+        binder.setBean(variazioneCommessa);
 
         setVisible(true);
-        commessa.focus();
+        importo.focus();
     }
 
 }

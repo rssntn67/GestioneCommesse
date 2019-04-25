@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,9 +25,9 @@ import it.arsinfo.gc.repository.CommessaDao;
 import it.arsinfo.gc.repository.ResocontoDao;
 import it.arsinfo.gc.repository.VoceCostoDao;
 
-@SpringUI(path=GestioneCommesseUI.URL_RESOCONTI)
+@SpringUI(path=GCUI.URL_RESOCONTI)
 @Title("Resoconti")
-public class ResocontoUI extends GestioneCommesseHeaderUI {
+public class ResocontoUI extends GCUI {
 
     ComboBox<Commessa> filterCommessa;
     ComboBox<VoceCosto> filterVoceCosto;

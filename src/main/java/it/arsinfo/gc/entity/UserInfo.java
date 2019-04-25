@@ -1,5 +1,6 @@
 package it.arsinfo.gc.entity;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,7 +16,11 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class UserInfo {
+public class UserInfo implements GCEntity {
+
+    public static String[] getRoleNames() {
+        return Arrays.stream(Role.values()).map(Enum::name).toArray(String[]::new);
+    }    
 
     public enum Role {
         ADMIN,
@@ -36,14 +41,13 @@ public class UserInfo {
     private Role role;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date data;
+    private Date data = new Date();
 
     private boolean locked = false;
 
     public UserInfo() {
-        username = "";
+        username = "user";
         role = Role.USER;
-        data = new Date();
     }
 
     public UserInfo(String name, String password, Role role) {

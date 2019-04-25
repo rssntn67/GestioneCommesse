@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 
 import com.vaadin.data.Binder;
@@ -12,7 +12,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import it.arsinfo.gc.entity.VoceCosto;
 import it.arsinfo.gc.repository.VoceCostoDao;
 
-public class VoceCostoEditor extends GestioneCommesseEditor {
+public class VoceCostoEditor extends GCChangeHandler {
 
     /**
      * 

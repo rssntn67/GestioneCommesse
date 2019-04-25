@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
@@ -8,7 +8,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
 @Title("Gestione Commesse")
-public class GestioneCommesseUI extends GestioneCommesseHeaderUI {
+public class HomeUI extends GCUI {
 
     /**
      * 

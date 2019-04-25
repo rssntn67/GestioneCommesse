@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,9 +26,9 @@ import it.arsinfo.gc.entity.VariazioneCommessa;
 import it.arsinfo.gc.repository.CommessaDao;
 import it.arsinfo.gc.repository.VariazioneCommessaDao;
 
-@SpringUI(path=GestioneCommesseUI.URL_VARIAZIONE_COMMESSE)
+@SpringUI(path=HomeUI.URL_VARIAZIONE_COMMESSE)
 @Title("Variazione Commesse")
-public class VariazioneCommessaUI extends GestioneCommesseHeaderUI {
+public class VariazioneCommessaUI extends GCUI {
 
     ComboBox<Commessa> filterCommessa;
     TextField filter = new TextField();

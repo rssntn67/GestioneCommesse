@@ -1,4 +1,4 @@
-package it.arsinfo.gc.vaadin;
+package it.arsinfo.gc.ui.vaadin;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +22,9 @@ import com.vaadin.ui.themes.ValoTheme;
 import it.arsinfo.gc.entity.VoceCosto;
 import it.arsinfo.gc.repository.VoceCostoDao;
 
-@SpringUI(path=GestioneCommesseUI.URL_VOCECOSTO)
+@SpringUI(path=GCUI.URL_VOCECOSTO)
 @Title("Voci di Costo")
-public class VoceCostoUI extends GestioneCommesseHeaderUI {
+public class VoceCostoUI extends GCUI {
 
     Grid<VoceCosto> grid;
     @Autowired
