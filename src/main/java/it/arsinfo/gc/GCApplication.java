@@ -129,10 +129,10 @@ public class GCApplication {
                 r3.setTipologia(Tipologia.ANNUALE);
                 resocontoDao.save(r3);
                 
-                UserInfo adp = new UserInfo("adp", passwordEncoder.encode("adp"), Role.USER);
+                UserInfo adp = new UserInfo("user", passwordEncoder.encode("pass"), Role.USER);
                 adp.setLocked(true);
                 userInfoDao.save(adp);
-                log.info("creato user adp/adp");
+                log.info("creato user user/pass");
                 log.info("End Loading Sample Data");
            
             }
