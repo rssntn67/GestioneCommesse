@@ -15,11 +15,17 @@ l'applicazione è disponibile sulla porta 8080
 Questa maniera di eseguire non consente alla applicazione di essere eseguita in background 
 e la chiusura della sessione congiuntamente temina anche il processo java.
 
-Se si deve installare un ambiente di produzione allora bisogna eseguire i seguenti comandi:
+Se si deve installare un ambiente di produzione unix like allora bisogna eseguire i seguenti comandi:
 
 mvn clean
+
 mvn install
+
 nohup java -jar target/gestionecommesse-0.0.1-SNAPSHOT.jar > gestionecommesse.log 2>&1 &
+
+In windows invece potete eseguire il processo in un altra finestra:
+
+start /min java -jar target/gestionecommesse-0.0.1-SNAPSHOT.jar > gestionecommesse.log 2>&1 &
 
 PREREQUISITI 
 INSTALLAZIONE POSTGRESQL
