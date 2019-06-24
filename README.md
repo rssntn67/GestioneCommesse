@@ -61,5 +61,10 @@ spring.datasource.password
 
 AGGIORNAMENTO
 
-Per aggiornare l'applicazione bisogna ricreare il database.
+Per aggiornare l'applicazione bisogna 
+rimuovere il database:
+
+dropdb gestionecommesse
+
+e installare di nuovo
 
