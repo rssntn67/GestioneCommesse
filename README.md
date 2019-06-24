@@ -12,6 +12,14 @@ spostarsi nella direcvtory creata (GestioneCommesse)
 eseguire: mvn spring-boot:run
 l'applicazione è disponibile sulla porta 8080
 
+Questa maniera di eseguire non consente alla applicazione di essere eseguita in background 
+e la chiusura della sessione congiuntamente temina anche il processo java.
+
+Se si deve installare un ambiente di produzione allora bisogna eseguire i seguenti comandi:
+
+mvn clean
+mvn install
+nohup java -jar target/gestionecommesse-0.0.1-SNAPSHOT.jar > gestionecommesse.log 2>&1 &
 
 PREREQUISITI 
 INSTALLAZIONE POSTGRESQL
@@ -44,3 +52,8 @@ Inserire la password del utente super user di postgresql nel file
 src/resources/application.properties
 modificando opportunamente la proprietà 
 spring.datasource.password
+
+AGGIORNAMENTO
+
+Per aggiornare l'applicazione bisogna ricreare il database.
+
